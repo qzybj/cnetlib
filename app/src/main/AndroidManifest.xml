@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-    package="com.cnet">
+    package="com.cuckoo95.cnetlib">
 
     <application
         android:allowBackup="true"
