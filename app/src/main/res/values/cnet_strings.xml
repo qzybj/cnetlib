@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CNet</string>
+    <!-- 网络请求相关 -->
+    <string name="net_request_error">请求数据失败</string>
+
+</resources>
