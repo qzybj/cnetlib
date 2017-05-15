@@ -10,6 +10,8 @@ import com.cuckoo95.cnetlib.def.http.dispatcher.ReqDispatcher;
 import com.cuckoo95.cnetlib.def.http.request.CAbstractRequst;
 import com.cuckoo95.cnetlib.def.http.request.IBaseRequest;
 import com.cuckoo95.cnetlib.def.http.resp.IRespBase;
+import com.cuckoo95.cutillib.log.CLog;
+import com.cuckoo95.cutillib.log.ILog;
 
 import java.util.HashMap;
 
@@ -27,7 +29,9 @@ public class ImplHttpServer {
     private static IHttpServer httpServerImpl = null ;
     //接口返回json第一级的节点信息， 所有接口通用
     private static Class baseRespClass = null ;
-    protected static void init(Context ctx, Class implClass, Class respClass, boolean isNeedReturnJson){
+    protected static void init(Context ctx, Class implClass, Class respClass, boolean isNeedReturnJson,
+                               ILog logImpl){
+        setLogImpl(logImpl);
         if( ctx == null || implClass == null  || respClass == null ){
             new RuntimeException("HttpServer init failure, context, baseRespClass or implClass is null");
         }
@@ -62,6 +66,14 @@ public class ImplHttpServer {
     }
 
     /**
+     *
+     * @param logImpl
+     */
+    protected static void setLogImpl(ILog logImpl){
+        CLog.setLogImpl(logImpl);
+    }
+
+    /**
      * Check this sdk is initted.
      * @return
      */
@@ -92,6 +104,13 @@ public class ImplHttpServer {
         return httpServerImpl.downloadFile(context,url,destinationPath,isAllow3G,downloadCallback) ;
     }
 
+    /**
+     * Get default http executor
+     * @return
+     */
+    protected static IHttpServer getDefHttpExecutor(){
+        return httpServerImpl;
+    }
 
     /**
      * Get data by sync. Just support one request.
@@ -114,14 +133,17 @@ public class ImplHttpServer {
         }else {
             postParamMap = request.getRequestParams();
         }
-
-        return (E)httpServerImpl.getDataBySync(context,request.getReqMethod(),
+        //获取顶级解析类
+        Class rootResp = HttpServerHelper.parseRootRespClass(baseRespClass,
+                request);
+        IHttpServer httpExecutor = HttpServerHelper.parseHttpExecutor(httpServerImpl,request);
+        return (E)httpExecutor.getDataBySync(context,request.getReqMethod(),
                 request.getFullUrl(),
                 postParamMap,
                 postParamByJson,
                 request.getRequestHeader(context),
                 request.getRespObjClass(),
-                baseRespClass,isReturnJson,request);
+                rootResp,isReturnJson,request);
     }
 
     /******************************************************/

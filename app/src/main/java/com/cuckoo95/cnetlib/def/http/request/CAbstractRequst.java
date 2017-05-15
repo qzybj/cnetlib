@@ -3,9 +3,12 @@ package com.cuckoo95.cnetlib.def.http.request;
 import android.content.Context;
 
 import com.cuckoo95.cnetlib.def.http.CHttpMethod;
+import com.cuckoo95.cnetlib.def.http.HttpServer;
+import com.cuckoo95.cnetlib.def.http.IHttpServer;
+import com.cuckoo95.cnetlib.util.gson.GsonUtil;
 import com.cuckoo95.cutillib.CListUtil;
 import com.cuckoo95.cutillib.ST;
-import com.cuckoo95.cnetlib.util.gson.GsonUtil;
+import com.cuckoo95.cutillib.log.ILog;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Field;
@@ -55,6 +58,12 @@ public class CAbstractRequst<T> {
     /**Data class */
     @SerializedName(CRequestConstants.TAG_IGNORE)
     private transient Class<T> respObjClass = null  ;
+    /**Root class */
+    @SerializedName(CRequestConstants.TAG_IGNORE)
+    private transient Class<T> respRootClass = null  ;
+    /**Http executer, if have not set, used default executer,{@link HttpServer#init(Context, Class, Class, boolean, ILog)} */
+    @SerializedName(CRequestConstants.TAG_IGNORE)
+    private transient IHttpServer httpExecuter = null ;
     /**Tag */
     private transient Object tag;
     /**Used to flag every request*/
@@ -233,6 +242,10 @@ public class CAbstractRequst<T> {
         return respObjClass;
     }
 
+    public void setRespObjClass(Class<T> respObjClass) {
+        this.respObjClass = respObjClass;
+    }
+
     public String getBaseUrl() {
         return baseUrl;
     }
@@ -257,4 +270,19 @@ public class CAbstractRequst<T> {
         this.reqCode = reqCode;
     }
 
+    public Class<T> getRespRootClass() {
+        return respRootClass;
+    }
+
+    public void setRespRootClass(Class<T> respRootClass) {
+        this.respRootClass = respRootClass;
+    }
+
+    public IHttpServer getHttpExecuter() {
+        return httpExecuter;
+    }
+
+    public void setHttpExecuter(IHttpServer httpExecuter) {
+        this.httpExecuter = httpExecuter;
+    }
 }

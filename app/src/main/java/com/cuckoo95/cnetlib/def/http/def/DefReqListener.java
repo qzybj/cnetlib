@@ -38,6 +38,10 @@ public class DefReqListener implements IReqCallback {
 
     }
 
+    @Override
+    public void onAllRequestDone(int lastReqCode, CAbstractRequst lastRequest) {
+
+    }
 
     /*****************************************************/
     /**********************Loading dialog******************/

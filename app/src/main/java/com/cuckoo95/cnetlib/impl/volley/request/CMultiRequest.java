@@ -1,13 +1,15 @@
 package com.cuckoo95.cnetlib.impl.volley.request;
 
-
 import com.android.internal.http.multipart.FilePart;
 import com.android.internal.http.multipart.Part;
 import com.android.internal.http.multipart.StringPart;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.cuckoo95.cnetlib.CNet;
+import com.cuckoo95.cnetlib.util.HttpHeaderUtil;
+import com.cuckoo95.cutillib.CListUtil;
+import com.cuckoo95.cutillib.log.CLog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -17,9 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import com.cuckoo95.cutillib.CListUtil;
-import com.cuckoo95.cnetlib.util.HttpHeaderUtil;
 
 /**
  * @author Cuckoo
@@ -56,7 +55,7 @@ public class CMultiRequest extends StringRequest {
         try {
             Part.sendParts(baos, getAllParams());
         } catch (IOException e) {
-            VolleyLog.e(e, "error when sending parts to output!");
+            CLog.e(CNet.LOG_TAG,"error when sending parts to output!",e);
         }
         return baos.toByteArray();
     }

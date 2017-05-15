@@ -13,8 +13,10 @@
  ******************************************************************************/
 package com.cuckoo95.cnetlib.util.gson;
 
-import android.util.Log;
-
+import com.cuckoo95.cnetlib.CNet;
+import com.cuckoo95.cnetlib.def.http.exception.HttpException;
+import com.cuckoo95.cutillib.ST;
+import com.cuckoo95.cutillib.log.CLog;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -22,9 +24,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
-import com.cuckoo95.cnetlib.def.http.exception.HttpException;
-import com.cuckoo95.cutillib.ST;
 
 public class GsonUtil {
 	private static Gson gson = null ;
@@ -65,7 +64,7 @@ public class GsonUtil {
 	 * @return
 	 */
 	public static <T> T parseJson(String json, final Class<T> objClass){
-		return parseJsonByArgumentArray(objClass,json,null);
+		return getGson().fromJson(json,objClass);
 	}
 
 	/**
@@ -159,7 +158,7 @@ public class GsonUtil {
 			try{
 				return getGson().fromJson(json, typeOfT);
 			}catch (JsonSyntaxException e) {
-				Log.e("", "Parse json error: " + e.getMessage());
+				CLog.e(CNet.LOG_TAG,"Parse json error: " + e.getMessage());
 				throw new HttpException("Parse json error" + e.getMessage());
 			}
 		}

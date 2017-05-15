@@ -20,9 +20,9 @@ import com.cuckoo95.cnetlib.def.http.resp.IRespBase;
 import com.cuckoo95.cnetlib.impl.volley.request.CMultiRequest;
 import com.cuckoo95.cnetlib.impl.volley.request.CStringReqeust;
 import com.cuckoo95.cnetlib.impl.volley.resp.DefBaseResponse;
+import com.cuckoo95.cnetlib.util.gson.GsonUtil;
 import com.cuckoo95.cutillib.CListUtil;
 import com.cuckoo95.cutillib.ST;
-import com.cuckoo95.cnetlib.util.gson.GsonUtil;
 
 import java.util.HashMap;
 import java.util.Iterator;

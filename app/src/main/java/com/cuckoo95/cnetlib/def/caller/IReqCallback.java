@@ -41,4 +41,12 @@ public interface IReqCallback extends IReqTipCallback {
      */
     void onRequestFailure(int reqCode, CAbstractRequst request, IErrResp errResp);
 
+    /**
+     * 所有请求结束
+     * @param lastReqCode
+     *  最后一个完成请求的请求码， 针对多个异步请求的情况
+     * @param lastRequest
+     *  最后一个完成请求的请求信息， 针对多个异步请求的情况
+     */
+    void onAllRequestDone(int lastReqCode, CAbstractRequst lastRequest);
 }

@@ -1,5 +1,6 @@
 package com.cuckoo95.cnetlib.def.http.dispatcher;
 
+import com.cuckoo95.cnetlib.CNet;
 import com.cuckoo95.cnetlib.def.caller.IReqCallback;
 import com.cuckoo95.cnetlib.def.http.HttpServerHelper;
 import com.cuckoo95.cnetlib.def.http.IHttpServerCallback;
@@ -7,6 +8,8 @@ import com.cuckoo95.cnetlib.def.http.exception.HttpException;
 import com.cuckoo95.cnetlib.def.http.request.CAbstractRequst;
 import com.cuckoo95.cnetlib.def.http.resp.IErrResp;
 import com.cuckoo95.cnetlib.def.http.resp.IRespBase;
+import com.cuckoo95.cutillib.ST;
+import com.cuckoo95.cutillib.log.CLog;
 
 /**
  *
@@ -46,6 +49,9 @@ public class SingleReqResper implements IHttpServerCallback{
      */
     @Override
     public <T> void onResponse(IRespBase<T> respObj, CAbstractRequst req) {
+        CLog.d(CNet.LOG_TAG,"==dispatch single request complete==\nreqCode=["+req.getReqCode()+"]\n"+
+                "url=["+ req.getFullUrl() + "],\n" +
+                "json=["+ ST.f(respObj.getJson()) + "]");
         if(respObj == null ){
             HttpException exception = new HttpException(IErrResp.STATUS_RESPNULL,"Response is null");
             onErrResponse(exception,request);
@@ -70,6 +76,9 @@ public class SingleReqResper implements IHttpServerCallback{
      */
     @Override
     public void onErrResponse(IErrResp errResp, CAbstractRequst req) {
+        CLog.d(CNet.LOG_TAG,"==dispatch single request failure==\nreqCode=["+req.getReqCode()+"]\n"+
+                "url=["+ req.getFullUrl() + "],\n" +
+                "err=["+ ST.f(errResp.getErrMsg()) + "]");
         //Callback request failure.
         HttpServerHelper.onRequestFailure(request,errResp, reqCallback);
         onRequestComplete(errResp);

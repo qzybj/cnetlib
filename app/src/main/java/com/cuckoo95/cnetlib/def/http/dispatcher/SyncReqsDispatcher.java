@@ -2,14 +2,17 @@ package com.cuckoo95.cnetlib.def.http.dispatcher;
 
 import android.content.Context;
 
+import com.cuckoo95.cnetlib.CNet;
 import com.cuckoo95.cnetlib.def.caller.IReqCallback;
 import com.cuckoo95.cnetlib.def.caller.IReqRefactor;
+import com.cuckoo95.cnetlib.def.http.HttpServerHelper;
 import com.cuckoo95.cnetlib.def.http.IHttpServer;
 import com.cuckoo95.cnetlib.def.http.exception.HttpException;
 import com.cuckoo95.cnetlib.def.http.request.CAbstractRequst;
 import com.cuckoo95.cnetlib.def.http.request.IBaseRequest;
 import com.cuckoo95.cnetlib.def.http.resp.IErrResp;
 import com.cuckoo95.cutillib.CListUtil;
+import com.cuckoo95.cutillib.log.CLog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +73,7 @@ public class SyncReqsDispatcher {
         if (request == null) {
             return false;
         }
+        CLog.d(CNet.LOG_TAG,"==dispatch syncrequest==\nreqCode=["+request.getReqCode()+"]");
         execOneRequest(request);
         return true;
     }
@@ -98,10 +102,19 @@ public class SyncReqsDispatcher {
         }else {
             postParamMap = request.getRequestParams();
         }
+        CLog.d(CNet.LOG_TAG,"==dispatch single request==\nreqCode=["+request.getReqCode()+"]\n"+
+                "url=["+ request.getFullUrl() + "],\n" +
+                "method=["+ request.getReqMethod() + "],\n" +
+                "param=["+ postParamByJson + "]");
+
+        //获取顶级解析类
+        Class rootResp = HttpServerHelper.parseRootRespClass(baseRespClass,
+                request);
         //开始同步执行请求
-        httpServer.getData(context, request.getReqMethod(), request.getFullUrl(),
+        IHttpServer httpExecutor = HttpServerHelper.parseHttpExecutor(httpServer,request);
+        httpExecutor.getData(context, request.getReqMethod(), request.getFullUrl(),
                 postParamMap,postParamByJson, request.getRequestHeader(context),
-                request.getRespObjClass(),baseRespClass,
+                request.getRespObjClass(),rootResp,
                 isReturnJson, singleReqResper, request);
     }
 

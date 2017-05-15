@@ -14,8 +14,10 @@ public interface IErrResp extends IHttpResp{
     int STATUS_RESP_NON200 = 1003;
     int STATUS_PARSE_JSON_ERROR = 1004;
     int STATUS_BASERESPONSE_ERROR = 1005;
+    //不支持当前请求类型
+    int STATUS_REQUEST_UNSUPPORT = 1006;
     //未知异常
-    int STATUS_UNKNOWN = 1006;
+    int STATUS_UNKNOWN = 1007;
 
 
 

@@ -9,6 +9,7 @@ import com.cuckoo95.cnetlib.def.http.request.CAbstractRequst;
 import com.cuckoo95.cnetlib.def.http.request.IBaseRequest;
 import com.cuckoo95.cnetlib.def.http.resp.IRespBase;
 import com.cuckoo95.cnetlib.impl.volley.VolleyHttpServer;
+import com.cuckoo95.cutillib.log.ILog;
 
 /**
  * @author Cuckoo
@@ -23,9 +24,11 @@ public class HttpServer {
      * @param context
      * @param baseRespClass
      *      返回json的第一级节点信息， 需要实现{@link IRespBase}接口
+     * @param log
+     *      由调用者自己实现日志输出
      */
-    public static void initDefault(Context context,Class baseRespClass, boolean isNeedReturnJson){
-        init(context, VolleyHttpServer.class, baseRespClass,isNeedReturnJson);
+    public static void initDefault(Context context,Class baseRespClass, boolean isNeedReturnJson,ILog log){
+        init(context, VolleyHttpServer.class, baseRespClass,isNeedReturnJson,log);
     }
 
     /**
@@ -37,9 +40,19 @@ public class HttpServer {
      *      返回json的第一级节点信息， 需要实现{@link IRespBase}接口
      * @param isNeedReturnJson
      *      返回值中是否需要返回JSON，默认不返回
+     * @param log
+     *      由调用者自己实现日志输出
      */
-    public static void init(Context ctx, Class implClass, Class baseRespClass,boolean isNeedReturnJson) {
-        ImplHttpServer.init(ctx, implClass, baseRespClass,isNeedReturnJson);
+    public static void init(Context ctx, Class implClass, Class baseRespClass, boolean isNeedReturnJson, ILog log) {
+        ImplHttpServer.init(ctx, implClass, baseRespClass,isNeedReturnJson, log);
+    }
+
+    /**
+     * set log implement
+     * @param logImpl
+     */
+    public static void setLogImpl(ILog logImpl){
+        ImplHttpServer.setLogImpl(logImpl);
     }
 
     /**
@@ -92,4 +105,11 @@ public class HttpServer {
         return ImplHttpServer.downloadFile(url, destinationPath,isAllow3G,downloadCallback);
     }
 
+    /**
+     * Get default http executor
+     * @return
+     */
+    public static IHttpServer getDefHttpExecutor(){
+        return ImplHttpServer.getDefHttpExecutor();
+    }
 }

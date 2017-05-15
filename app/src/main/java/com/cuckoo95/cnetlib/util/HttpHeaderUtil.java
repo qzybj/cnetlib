@@ -1,8 +1,9 @@
 package com.cuckoo95.cnetlib.util;
 
-import java.util.HashMap;
+
 import com.cuckoo95.cutillib.CListUtil;
 
+import java.util.HashMap;
 
 /**
  *
