@@ -11,7 +11,7 @@ import com.cnet.def.http.request.CRequestConstants;
 import com.cnet.def.http.request.IBaseRequest;
 import com.cnet.def.http.resp.IErrResp;
 import com.cnet.def.http.resp.IRespBase;
-import com.cnet.util.StringUtil;
+import com.cuckoo95.cutillib.ST;
 
 import java.util.HashSet;
 
@@ -157,7 +157,7 @@ public class HttpServerHelper {
             return context.getString(R.string.net_request_error) + errResp.getStatus();
         }
         String errMsg = errResp.getErrMsg();
-        if(StringUtil.isEmpty(errMsg)){
+        if(ST.isEmpty(errMsg)){
             //Get default message.
             errMsg = getString(request.getDefaultFailureMsg(),context);
         }

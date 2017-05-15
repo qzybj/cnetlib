@@ -20,8 +20,8 @@ import com.cnet.def.http.resp.IRespBase;
 import com.cnet.impl.volley.request.CMultiRequest;
 import com.cnet.impl.volley.request.CStringReqeust;
 import com.cnet.impl.volley.resp.DefBaseResponse;
-import com.cnet.util.CListUtil;
-import com.cnet.util.StringUtil;
+import com.cuckoo95.cutillib.CListUtil;
+import com.cuckoo95.cutillib.ST;
 import com.cnet.util.gson.GsonUtil;
 
 import java.util.HashMap;
@@ -79,7 +79,7 @@ public class VolleyHttpServer implements IHttpServer {
             returnJson = (String) future.get();
         } catch (Exception e) {
             errException = new HttpException(IErrResp.STATUS_RESP_NON200,
-                    StringUtil.getExceptionMessage(e));
+                    ST.getExceptionMessage(e));
         }
         return (E) parse2Result(returnJson, respObjClass, baseRespClass,errException, isReturnJson);
     }
@@ -167,7 +167,7 @@ public class VolleyHttpServer implements IHttpServer {
             message = errResp.getErrMsg();
             isError = true;
         } else {
-            if (StringUtil.isEmpty(json)) {
+            if (ST.isEmpty(json)) {
                 errCode = IErrResp.STATUS_RESPNULL;
                 isError = true;
             } else if (respObj == null) {
@@ -187,14 +187,14 @@ public class VolleyHttpServer implements IHttpServer {
             } catch (Exception e) {
                 //parse json error.
                 errCode = IErrResp.STATUS_PARSE_JSON_ERROR;
-                message = StringUtil.getExceptionMessage(e);
+                message = ST.getExceptionMessage(e);
             }
         }
         if (response == null) {
             try {
                 response = (IRespBase<T>)baseRespClass.newInstance();
             } catch (Exception e) {
-                message = StringUtil.getExceptionMessage(e);
+                message = ST.getExceptionMessage(e);
                 errCode = IErrResp.STATUS_BASERESPONSE_ERROR;
             }
             if( response == null ){

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * @project:
- * @file: StringUtil.java
+ * @file: ST.java
  * @author: Cuckoo
  * @created: 2012-03-28
  * @purpose:
@@ -17,6 +17,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+
+import com.cuckoo95.cutillib.ST;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,7 +132,7 @@ public class StringUtil {
 		if( et == null ){
 			return "";
 		}
-		return StringUtil.f(et.getText().toString());
+		return ST.f(et.getText().toString());
 	}
 
 	/**
@@ -162,7 +164,7 @@ public class StringUtil {
 	 */
 	public static int parseInt(String value){
 		try{
-			return Integer.parseInt(StringUtil.f(value));
+			return Integer.parseInt(ST.f(value));
 		}catch (Exception e){
 
 		}
@@ -176,7 +178,7 @@ public class StringUtil {
 	 */
 	public static double parseDouble(String value){
 		try{
-			return Double.parseDouble(StringUtil.f(value));
+			return Double.parseDouble(ST.f(value));
 		}catch (Exception e){
 
 		}
@@ -190,7 +192,7 @@ public class StringUtil {
 	 */
 	public static long parseLong(String value){
 		try{
-			return Long.parseLong(StringUtil.f(value));
+			return Long.parseLong(ST.f(value));
 		}catch (Exception e){
 
 		}
@@ -273,7 +275,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static int getStringLength(String s){
-		if(StringUtil.isEmpty(s)){
+		if(ST.isEmpty(s)){
 			return 0 ;
 		}
 		int count = s.length() ;

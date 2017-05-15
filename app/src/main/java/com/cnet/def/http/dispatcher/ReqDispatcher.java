@@ -9,7 +9,7 @@ import com.cnet.def.http.IHttpServer;
 import com.cnet.def.http.request.CAbstractRequst;
 import com.cnet.def.http.request.IBaseRequest;
 import com.cnet.def.http.resp.IErrResp;
-import com.cnet.util.CListUtil;
+import com.cuckoo95.cutillib.CListUtil;
 
 import java.util.ArrayList;
 import java.util.Vector;

@@ -24,7 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import com.cnet.def.http.exception.HttpException;
-import com.cnet.util.StringUtil;
+import com.cuckoo95.cutillib.ST;
 
 public class GsonUtil {
 	private static Gson gson = null ;
@@ -77,7 +77,7 @@ public class GsonUtil {
 	 * @return
 	 */
 	public static <T> T parseJsonByArgumentArray(Class<T> rootClass, String json,  Class[] objClass){
-		if( !StringUtil.isEmpty(json) ){
+		if( !ST.isEmpty(json) ){
 			try{
 				return getGson().fromJson(json,getNewType(rootClass,objClass));
 			}catch (JsonSyntaxException e) {
@@ -96,7 +96,7 @@ public class GsonUtil {
      * @return
      */
 	public static <T> T parseJsonByArgument(Class<T> rootClass, String json,  Class... objClass){
-		if( !StringUtil.isEmpty(json) ){
+		if( !ST.isEmpty(json) ){
 			try{
 				return getGson().fromJson(json,getNewType(rootClass,objClass));
 			}catch (JsonSyntaxException e) {
@@ -155,7 +155,7 @@ public class GsonUtil {
 	 * @return
 	 */
 	public static <T> T fromJson(String json,  Type typeOfT){
-		if( !StringUtil.isEmpty(json) ){
+		if( !ST.isEmpty(json) ){
 			try{
 				return getGson().fromJson(json, typeOfT);
 			}catch (JsonSyntaxException e) {

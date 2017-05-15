@@ -3,8 +3,8 @@ package com.cnet.def.http.request;
 import android.content.Context;
 
 import com.cnet.def.http.CHttpMethod;
-import com.cnet.util.CListUtil;
-import com.cnet.util.StringUtil;
+import com.cuckoo95.cutillib.CListUtil;
+import com.cuckoo95.cutillib.ST;
 import com.cnet.util.gson.GsonUtil;
 import com.google.gson.annotations.SerializedName;
 
@@ -73,7 +73,7 @@ public class CAbstractRequst<T> {
      * @return
      */
     public String getFullUrl(){
-        return StringUtil.f(baseUrl) + StringUtil.f(postFixUrl);
+        return ST.f(baseUrl) + ST.f(postFixUrl);
     }
 
     /**
@@ -103,11 +103,11 @@ public class CAbstractRequst<T> {
                         entry.getValue() instanceof String){
                     value = (String)entry.getValue();
                 }else {
-                    new RuntimeException("method:" + StringUtil.f(postFixUrl) +
+                    new RuntimeException("method:" + ST.f(postFixUrl) +
                             "`s param is not string" +
                             key + ":" + value);
                 }
-                if(StringUtil.isEmpty(key)){
+                if(ST.isEmpty(key)){
                     continue;
                 }
                 if(sb.length() > 0){
@@ -143,7 +143,7 @@ public class CAbstractRequst<T> {
                         continue ;
                     }
                 }
-                if(StringUtil.isEmpty(key)){
+                if(ST.isEmpty(key)){
                     key = t_field.getName();
                 }
 

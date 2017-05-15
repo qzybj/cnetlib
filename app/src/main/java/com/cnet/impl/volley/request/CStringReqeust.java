@@ -4,7 +4,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.cnet.util.HttpHeaderUtil;
-import com.cnet.util.StringUtil;
+import com.cuckoo95.cutillib.ST;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class CStringReqeust extends StringRequest {
 
     @Override
     public byte[] getBody() throws AuthFailureError {
-        if(!StringUtil.isEmpty(postJson)){
+        if(!ST.isEmpty(postJson)){
             //已JSON方式上传数据
             return postJson.getBytes();
         }

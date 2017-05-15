@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.cnet.util.CListUtil;
+import com.cuckoo95.cutillib.CListUtil;
 import com.cnet.util.HttpHeaderUtil;
 
 /**

@@ -19,7 +19,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.text.TextUtils;
 
-import com.cnet.util.StringUtil;
+import com.cuckoo95.cutillib.ST;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -199,7 +199,7 @@ public class DownLoadFileHelper {
             }
         } catch (Exception e) {
             errCode =ERRCODE_IOEXCEPTION;
-            errMsg = StringUtil.f(e.getLocalizedMessage());
+            errMsg = ST.f(e.getLocalizedMessage());
         }finally {
             try {
                 // Close the InputStream
